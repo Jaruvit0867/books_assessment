@@ -146,6 +146,18 @@ Example validation error (400 Bad Request):
 
 Tests run against `books_db_test` database (separate from the main database).
 
+### Test Cases
+
+| # | Test | Description |
+|---|------|-------------|
+| 1 | `shouldCreateBookSuccessfully` | POST /books with valid data returns 201 and correct book details |
+| 2 | `shouldReturnBadRequestWhenTitleIsEmpty` | POST /books with empty title returns 400 |
+| 3 | `shouldReturnBadRequestWhenAuthorIsEmpty` | POST /books with empty author returns 400 |
+| 4 | `shouldReturnBadRequestWhenPublishedDateIsInvalid` | POST /books with invalid date format returns 400 |
+| 5 | `shouldReturnBadRequestWhenPublishedDateIsInFuture` | POST /books with future date returns 400 |
+| 6 | `shouldGetBooksByAuthor` | GET /books?author returns all books by that author |
+| 7 | `shouldReturnEmptyListWhenAuthorNotFound` | GET /books?author returns empty array when no match |
+
 ## Project Structure
 
 ```
