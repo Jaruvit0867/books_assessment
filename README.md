@@ -8,6 +8,22 @@ A RESTful API for managing books, built with Spring Boot and MySQL.
 - Maven
 - MySQL 8+
 
+## Tech Stack & Dependencies
+
+| Dependency | Purpose |
+|------------|---------|
+| Spring Boot 4.0.6 | Framework |
+| spring-boot-starter-webmvc | REST API |
+| spring-boot-starter-data-jpa | Database ORM (Hibernate) |
+| spring-boot-starter-validation | Request validation (Jakarta Bean Validation) |
+| springdoc-openapi-starter-webmvc-ui 3.0.2 | Swagger UI |
+| mysql-connector-j | MySQL JDBC driver |
+| spring-boot-starter-devtools | Hot reload during development |
+| spring-boot-starter-test | Integration testing (MockMvc, JUnit 5) |
+| spring-boot-starter-webmvc-test | MockMvc auto-configuration |
+| spring-boot-starter-data-jpa-test | JPA testing support |
+| spring-boot-starter-validation-test | Validation testing support |
+
 ## Database Setup
 
 ### 1. Start MySQL
