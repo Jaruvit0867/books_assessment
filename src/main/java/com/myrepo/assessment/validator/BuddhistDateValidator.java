@@ -5,6 +5,7 @@ import jakarta.validation.ConstraintValidatorContext;
 
 import java.time.LocalDate;
 import java.time.Year;
+import java.time.chrono.ThaiBuddhistChronology;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -19,9 +20,10 @@ public class BuddhistDateValidator implements ConstraintValidator<ValidBuddhistD
         }
 
         try {
-            LocalDate buddhistDate = LocalDate.parse(value, BUDDHIST_FORMATTER);
-            int buddhistYear = buddhistDate.getYear();
-            int gregorianYear = buddhistYear - 543;
+            DateTimeFormatter formatter = BUDDHIST_FORMATTER
+                    .withChronology(ThaiBuddhistChronology.INSTANCE);
+            LocalDate gregorianDate = LocalDate.from(formatter.parse(value));
+            int gregorianYear = gregorianDate.getYear();
 
             if (gregorianYear <= 1000) {
                 context.disableDefaultConstraintViolation();
