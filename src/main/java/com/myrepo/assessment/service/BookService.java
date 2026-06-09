@@ -7,6 +7,7 @@ import com.myrepo.assessment.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.chrono.ThaiBuddhistChronology;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -37,10 +38,11 @@ public class BookService {
     }
 
     private LocalDate convertBuddhistToGregorian(String buddhistDate) {
-        LocalDate parsed = LocalDate.parse(buddhistDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        return parsed.minusYears(543);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+                .withChronology(ThaiBuddhistChronology.INSTANCE);
+        return LocalDate.from(formatter.parse(buddhistDate));
     }
-
+    
     private BookResponse toResponse(Book book) {
         return new BookResponse(
                 book.getId(),
