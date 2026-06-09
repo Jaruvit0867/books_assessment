@@ -131,6 +131,35 @@ class BookControllerIntegrationTest {
     }
 
     @Test
+    void shouldCreateBookWithBuddhistLeapYearDate() throws Exception {
+        String body = objectMapper.writeValueAsString(Map.of(
+                "title", "Leap Year Book",
+                "author", "Test Author",
+                "publishedDate", "29-02-2543"
+        ));
+
+        mockMvc.perform(post("/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.title").value("Leap Year Book"));
+    }
+
+    @Test
+    void shouldReturnBadRequestWhenBuddhistNonLeapYearFeb29() throws Exception {
+        String body = objectMapper.writeValueAsString(Map.of(
+                "title", "Invalid Leap Year Book",
+                "author", "Test Author",
+                "publishedDate", "29-02-2540"
+        ));
+
+        mockMvc.perform(post("/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void shouldReturnEmptyListWhenAuthorNotFound() throws Exception {
         mockMvc.perform(get("/books").param("author", "Unknown Author"))
                 .andExpect(status().isOk())
