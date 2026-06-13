@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.chrono.ThaiBuddhistChronology;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -35,6 +36,16 @@ public class BookService {
                 .stream()
                 .map(this::toResponse)
                 .toList();
+    }
+
+    public Optional<BookResponse> getBooksById(Long id) {
+        Optional<Book> book = bookRepository.findById(id);
+        if (book.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return bookRepository.findById(id)
+                .map(this::toResponse);
     }
 
     private LocalDate convertBuddhistToGregorian(String buddhistDate) {
